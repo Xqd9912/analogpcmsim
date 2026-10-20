@@ -1,5 +1,12 @@
 # PCM analog in-memory computing for materials AI (in-silico study)
 
+![Overview: measured PCM conductance states set the weight levels of a crossbar on which a diffusion crystal-structure generator and a GNN charge-density model reuse the same programmed weights](docs/overview.png)
+
+*Measured PCM conductance states set the weight levels of a simulated crossbar. Two pretrained
+materials models, diffusion crystal-structure generation and GNN charge-density prediction, run
+their matrix-vector products y = Wx on it and reuse the same programmed weights over thousands of
+evaluations. The rings give the share of each model's multiply-accumulates that run on the arrays.*
+
 Code for an EDTM conference paper that evaluates two pretrained materials models on simulated
 phase-change-memory (PCM) crossbar arrays whose weight levels come from a measured PCM device:
 
