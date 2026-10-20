@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pcmsim"
+version = "0.1.0"
+description = "In-silico evaluation of materials AI models (DiffCSP, ChargE3Net) on PCM analog in-memory computing arrays"
+requires-python = ">=3.10"
+dependencies = [
+    "torch>=2.5",
+    "e3nn==0.5.8",
+    "numpy",
+    "scipy",
+    "pandas",
+    "pyyaml",
+    "ase>=3.23",
+    "pymatgen>=2024.1",
+    "spglib",
+    "tqdm",
+]
+
+[project.optional-dependencies]
+figures = ["matplotlib", "pillow", "jupyter"]
+mp = ["mp-api"]                # scripts/showcase/fetch_refs.py
+gpu-energy = ["nvidia-ml-py"]  # scripts/run_p1_gpu.py
+test = ["pytest"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

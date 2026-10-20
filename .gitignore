@@ -1,0 +1,17 @@
+# fetched by scripts/setup_third_party.sh / downloaded data (see README)
+third_party/
+data/weights/
+data/mp_20/
+data/chgcar/
+build/
+# outputs
+results/
+figures/out/*
+!figures/out/fig1.png
+# python / OS / editors
+__pycache__/
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+.DS_Store
+POTCAR

@@ -1,0 +1,26 @@
+# Main environment (versions used for the paper runs; torch wheel: pick the CUDA build for your GPU).
+name: pcm
+channels: [conda-forge]
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+      - torch==2.8.0
+      - e3nn==0.5.8
+      - numpy==2.4.6
+      - scipy==1.17.1
+      - pandas==3.0.6
+      - pyyaml==6.0.3
+      - ase==3.29.0
+      - pymatgen==2026.9.24
+      - spglib==2.8.0
+      - tqdm==4.70.1
+      - matplotlib==3.11.2
+      - pillow==12.3.0
+      - mp-api==0.46.5
+      - nvidia-ml-py
+      - pytest
+      - jupyter
+      - -e .
+# MACE-MP-0 relaxation (scripts/showcase/relax.py) needs a separate env, because mace-torch pins e3nn 0.4.4:
+#   conda create -n pcm-mace python=3.11 && pip install torch==2.8.0 mace-torch==0.3.16 pymatgen ase pandas

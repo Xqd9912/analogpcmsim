@@ -1,0 +1,113 @@
+{
+ "note": "lowest energy_above_hull MP polymorph per composition; GST from showcase_test/refs (refs.json gst_chemsys), elements from mp-api (2026-10-16); structures used as-is (no relaxation)",
+ "structures": [
+  {
+   "formula": "GeTe",
+   "material_id": "mp-938",
+   "nsites": 2,
+   "e_above_hull_eV_atom": 0.0,
+   "theoretical": false,
+   "is_magnetic": false,
+   "total_magnetization": 0.0,
+   "spacegroup": "R3m",
+   "source": "refs/mp_gst/mp-938.cif (checked == mp-api structure: True)",
+   "ref_json_e_above_hull": 0.0
+  },
+  {
+   "formula": "Sb2Te3",
+   "material_id": "mp-1201",
+   "nsites": 5,
+   "e_above_hull_eV_atom": 0.0,
+   "theoretical": false,
+   "is_magnetic": false,
+   "total_magnetization": 0.0,
+   "spacegroup": "R-3m",
+   "source": "refs/mp_gst/mp-1201.cif (checked == mp-api structure: True)",
+   "ref_json_e_above_hull": 0.0
+  },
+  {
+   "formula": "GeSb2Te4",
+   "material_id": "mp-1224350",
+   "nsites": 7,
+   "e_above_hull_eV_atom": 0.007244600000002155,
+   "theoretical": true,
+   "is_magnetic": false,
+   "total_magnetization": 0.0008253,
+   "spacegroup": "R3m",
+   "source": "refs/mp_gst/mp-1224350.cif (checked == mp-api structure: True)",
+   "ref_json_e_above_hull": 0.007244600000002155
+  },
+  {
+   "formula": "Ge2Sb2Te5",
+   "material_id": "mp-1224375",
+   "nsites": 9,
+   "e_above_hull_eV_atom": 0.011780874444446532,
+   "theoretical": true,
+   "is_magnetic": false,
+   "total_magnetization": 0.0009772,
+   "spacegroup": "P-3m1",
+   "source": "refs/mp_gst/mp-1224375.cif (checked == mp-api structure: True)",
+   "ref_json_e_above_hull": 0.011780874444446532
+  },
+  {
+   "formula": "Ge3Sb2Te6",
+   "material_id": "mp-1212511",
+   "nsites": 11,
+   "e_above_hull_eV_atom": 0.011311125454546378,
+   "theoretical": true,
+   "is_magnetic": false,
+   "total_magnetization": 0.0002091,
+   "spacegroup": "R3m",
+   "source": "refs/mp_gst/mp-1212511.cif (checked == mp-api structure: True)",
+   "ref_json_e_above_hull": 0.011311125454546378
+  },
+  {
+   "formula": "GeSb4Te7",
+   "material_id": "mp-29641",
+   "nsites": 12,
+   "e_above_hull_eV_atom": 0.0038465641666696193,
+   "theoretical": false,
+   "is_magnetic": false,
+   "total_magnetization": 0.0,
+   "spacegroup": "P-3m1",
+   "source": "refs/mp_gst/mp-29641.cif (checked == mp-api structure: True)",
+   "ref_json_e_above_hull": 0.0038465641666696193
+  },
+  {
+   "formula": "Ge",
+   "material_id": "mp-32",
+   "nsites": 2,
+   "e_above_hull_eV_atom": 0.0,
+   "theoretical": false,
+   "is_magnetic": false,
+   "total_magnetization": 0.0,
+   "spacegroup": "Fd-3m",
+   "source": "mp-api summary.structure",
+   "ref_json_e_above_hull": null
+  },
+  {
+   "formula": "Sb",
+   "material_id": "mp-104",
+   "nsites": 2,
+   "e_above_hull_eV_atom": 0.0,
+   "theoretical": false,
+   "is_magnetic": false,
+   "total_magnetization": 0.0,
+   "spacegroup": "R-3m",
+   "source": "mp-api summary.structure",
+   "ref_json_e_above_hull": null
+  },
+  {
+   "formula": "Te",
+   "material_id": "mp-19",
+   "nsites": 3,
+   "e_above_hull_eV_atom": 0.0,
+   "theoretical": false,
+   "is_magnetic": false,
+   "total_magnetization": 0.0,
+   "spacegroup": "P3_121",
+   "source": "mp-api summary.structure",
+   "ref_json_e_above_hull": null
+  }
+ ]
+}

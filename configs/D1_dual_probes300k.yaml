@@ -1,0 +1,20 @@
+exp_id: D1
+run_tag: probes300k_dual
+mode: analog
+subset: data/splits/chg3_test_random100_seed42.csv
+chgcar_dir: data/chgcar/d1
+n_structures: null
+probes: 300000
+batch_probes: 5000
+device_config: configs/device_nominal.yaml
+device_overrides:
+  n_slices: 2
+chip_seeds:
+- 0
+- 1
+- 2
+read_seed: 2000
+calib:
+  structures_glob: data/structures/chg3_val_calib/*.cif
+  n_probes: 2000
+probe_seed: 0

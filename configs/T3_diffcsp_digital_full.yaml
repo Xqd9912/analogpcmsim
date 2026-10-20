@@ -1,0 +1,9 @@
+exp_id: T3_diffcsp_digital
+run_tag: eval1000_seed42
+mode: digital
+checkpoint: data/weights/diffcsp_mp_csp/last.ckpt
+split_csv: data/mp_20/test.csv
+subset: data/splits/mp20_test_eval1000_seed42.csv
+n_structures: 1000
+batch_size: 500
+sample_seed: 0

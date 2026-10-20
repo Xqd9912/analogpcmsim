@@ -1,0 +1,23 @@
+exp_id: P1_gpu
+run_tag: a800_fp32
+idle_s: 60
+repeats: 3
+diffcsp:
+  checkpoint: data/weights/diffcsp_mp_csp/last.ckpt
+  split_csv: data/mp_20/test.csv
+  subset: data/splits/mp20_test_eval1000_seed42.csv
+  batch_sizes:            # one batch of the first b structures of the T3 subset per run; 500 = T3/G1/G3 setting
+  - 500
+  - 64
+  - 1
+  sample_seed: 0
+  warmup_timesteps: 20
+charge3net:
+  subset: data/splits/chg3_test_random100_seed42.csv   # D1 subset (first n_structures)
+  chgcar_dir: data/chgcar/d1
+  n_structures: 3
+  probes: 300000          # same as D1
+  probe_seed: 0
+  batch_probes:           # 5000 = D1 setting
+  - 5000
+  - 20000

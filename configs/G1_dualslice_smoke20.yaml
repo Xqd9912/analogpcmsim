@@ -1,0 +1,18 @@
+exp_id: G1_dualslice
+run_tag: smoke20_dualslice
+mode: analog              # naive: every network evaluation on the analog array, full injected noise
+checkpoint: data/weights/diffcsp_mp_csp/last.ckpt
+split_csv: data/mp_20/test.csv
+subset: data/splits/mp20_test_eval1000_seed42.csv
+n_structures: 20
+batch_size: 40
+sample_seed: 0            # same sampler noise stream as the digital baseline
+device_config: configs/device_nominal.yaml
+device_overrides: {n_slices: 2}
+chip_seeds: [0]           # smoke test: 1 chip (full runs: [0, 1, 2])
+read_seed: 1000
+calib:                    # DAC/ADC full-scale calibration
+  split_csv: data/mp_20/val.csv
+  subset: data/splits/mp20_val_val1000_seed42.csv
+  n_structures: 32
+  timesteps: 50           # strided sampling pass covering t = 1000 ... 1

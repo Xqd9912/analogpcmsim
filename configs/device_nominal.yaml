@@ -1,0 +1,52 @@
+# Nominal PCM device configuration. Every entry: value + source (CLAUDE.md section 4).
+device_csv:
+  value: data/device/1792073641587_R.csv
+  source: measured (single device, 40 LTP + 40 LTD pulses)
+state_selection:
+  value: {k_sigma: 2}
+  source: "derived from CSV: adjacent states spaced >= 2*k*sigma_prog (non-overlapping ±kσ windows) -> 15 states, 29 differential levels (decision 2026-10-16)"
+sigma_prog:
+  value: 2.5
+  source: "estimated from pulse-to-pulse fluctuation of the CSV (second differences: LTP 1.87 uS, LTD 2.80 uS)"
+read_rel:
+  value: 0.01
+  source: "assumed (decision A, 2026-10-18): optimistic vs the literature PCM statistical model (Nandakumar et al., ICECS 2019; Joshi et al., Nat. Commun. 11, 2473 (2020); aihwkit PCMLikeNoiseModel), which gives state-dependent ~3.7-12.6 % at t = 20 s for our G range; sensitivity at 3 % and 5 % in G4"
+dac_bits:
+  value: 8
+  source: assumed
+adc_bits:
+  value: 8
+  source: "assumed; ADC full scale per (layer, row tile, column tile) determined on a calibration batch"
+dac_scaling:
+  value: dynamic
+  source: "method choice, adopted 2026-10-17: per-input-vector abs-max normalisation before the DAC, undone after the ADC (aihwkit NoiseManagement ABS_MAX style); static full scales left 80-97% of DiffCSP inputs/partial sums in the zero bin"
+n_slices:
+  value: 2
+  source: "adopted as nominal mapping 2026-10-18: dual-slice residual (write-verify) mapping, two differential pairs per weight; single slice is not reported"
+range_method:
+  value: mse
+  source: "method choice: DAC/ADC full scale = candidate minimizing quantization+clipping MSE on calibration data (max-based full scale left 75-98% of partial sums in the zero bin for SiLU-fed layers, 2026-10-17)"
+tile:
+  value: 256
+  source: "assumed (256x256 arrays, partial sums accumulated digitally in fp32)"
+alpha_grid:
+  value: 91
+  source: "method choice: per-column alpha_j grid search over max|w_j|*linspace(0.1,1,91), minimum quantization MSE"
+block_scale:
+  value: false
+  source: "mapping option (not nominal): block_alpha + block_dac"
+block_alpha:
+  value: false
+  source: "mapping option (not nominal): alpha_j per row block (tile) instead of one per output column"
+block_dac:
+  value: false
+  source: "mapping option (not nominal): DAC full scale per row block (tile) instead of one per layer"
+nu:
+  value: 0.03
+  source: "assumed, NOT USED: drift disabled in current experiments (decision 2026-10-16)"
+nu_std:
+  value: 0.0
+  source: "NOT USED (drift disabled)"
+t0:
+  value: 20.0
+  source: "assumed drift reference time (s), NOT USED"

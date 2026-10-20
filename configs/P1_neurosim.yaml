@@ -1,0 +1,81 @@
+exp_id: P1_neurosim
+run_tag: nominal_22nm
+# DNN+NeuroSim V1.4 C++ estimator (third_party/NeuroSim, branch 2DInferenceV1.4, commit 8a88abf); Param.cpp overrides.
+# Everything not listed keeps the NeuroSim V1.4 default (source: NeuroSim default), incl. readVoltage = 0.55 V at
+# 22 nm (fixed by NeuroSim per node for its ADC model; decision 2026-10-18), readPulseWidth = 10 ns, clkFreq <= 1 GHz
+# (synchronous: set by sensing delay), LSTP devices, validated calibration factors, X-Y bus.
+param:
+  technode:
+    value: 22
+    source: "decision 2026-10-18: lowest node at which NeuroSim V1.4/V1.5 support analog eNVM (<=14 nm exits with an error)"
+  memcelltype:
+    value: 2
+    source: "NeuroSim analog eNVM cell model (RRAM-type, multilevel resistive), used for PCM"
+  accesstype:
+    value: 1
+    source: "assumed: 1T1R (PCM arrays use a transistor or diode selector; HERMES uses 1T1R-type unit cells)"
+  cellBit:
+    value: 4
+    source: "derived from CSV: 15 distinguishable states -> 4-bit cell (NeuroSim assumes 2^cellBit equally spaced levels)"
+  resistanceOn:
+    value: 4265.6
+    source: "derived from CSV: 1 / Gmax of the selected state set, Gmax = 234.436 uS"
+  resistanceOff:
+    value: 28306.2
+    source: "derived from CSV: 1 / Gmin of the selected state set, Gmin = 35.328 uS"
+  widthInFeatureSize1T1R:
+    value: 17
+    source: "required: with Ron = 4.27 kOhm NeuroSim sizes the 1T1R access transistor (R_access = Ron * IR-drop tolerance) to 16.2F > default 12F cell width and aborts; cell widened to 17F (array area grows)"
+  novelMapping:
+    value: false
+    source: "required: all our crossbar matrices are fully connected (1x1); NeuroSim's novel mapping targets kxk conv kernels and crashes on e.g. 1801-row matrices -> conventional mapping"
+  pipeline:
+    value: false
+    source: "required: NeuroSim's pipeline mode replicates weights of layers with large (square) IFMs to balance the pipeline (a 400-vector layer was copied 400x); our premise is one programmed copy of every weight -> layer-by-layer mode (LSTP devices, so the leakage penalty noted in Param.cpp is small)"
+  levelOutput:
+    value: 256
+    source: "assumed: 8-bit ADC (CLAUDE.md section 5)"
+  SARADC:
+    value: true
+    source: "assumed: SAR ADC (an 8-bit multilevel sense amplifier would be flash-type)"
+  numColSubArray:
+    value: 256
+    source: "assumed: 256x256 arrays (CLAUDE.md section 5)"
+  inputtoggle:
+    value: from_traces
+    source: "derived from our input traces (NeuroSim: 'needs to be set based on real traces of the input bits'); per model"
+args:
+  synapseBit:
+    value: 16
+    source: "4 columns x 4-bit cells per weight = 2 slices x differential pair (4 PCM per weight, as HERMES); conservative: NeuroSim converts each column separately (4 ADC conversions per weight vs 2 differential reads in our model)"
+  numBitInput:
+    value: 8
+    source: "assumed: 8-bit DAC input (NeuroSim feeds inputs bit-serially)"
+  numRowSubArray:
+    value: 256
+    source: "assumed: 256x256 arrays"
+  numRowParallel:
+    value: 64
+    source: "assumed: 64 rows activated per cycle (CLAUDE.md section 5); C++ estimator supports partial parallel read for multilevel cells (numAdd = rows / rows_parallel)"
+variants:   # sensitivity runs: overrides of args / param
+  cols2:
+    args: {synapseBit: 8}
+    note: "2 columns per weight (one ADC conversion per slice, as a differential pair read on one ADC); device count underestimated 2x"
+  mlsa:
+    param: {SARADC: false}
+    note: "multilevel current sense amplifier ADC instead of SAR"
+diffcsp:
+  checkpoint: data/weights/diffcsp_mp_csp/last.ckpt
+  structure_id: mp-2095          # T3 typical structure (Rb2Te3, 20 atoms, MP-20 test)
+  split_csv: data/mp_20/test.csv
+  trace_timesteps: 3             # strided sampler: t = 1000, 500, 1; predictor + corrector -> 6 evaluations pooled
+  evals_per_sample: 2000
+  sample_seed: 0
+charge3net:
+  structure: data/inputs/mp-2095/mp-2095_Rb2Te3_chgcar.vasp
+  n_probes: 500                  # one probe batch; energy reported per probe (atom part, ~1e-5 of MACs, excluded)
+  probe_seed: 0
+device_config: configs/device_nominal.yaml
+digital_elementwise_pJ_per_op:
+  value: 3.7
+  source: "assumed: fp32 multiply at 45 nm (Horowitz, ISSCC 2014), unscaled; upper bound for elementwise ops kept digital (LayerNorm, SiLU, scatter, encodings)"

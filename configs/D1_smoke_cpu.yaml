@@ -1,0 +1,15 @@
+exp_id: D1
+run_tag: smoke5_cpu_2000probes
+mode: analog                  # digital predictions are always computed as the reference (T3.2)
+subset: data/splits/chg3_test_random100_seed42.csv   # 100 random ChargE3Net test-split structures
+chgcar_dir: data/chgcar/d1
+n_structures: 5
+probes: 2000                  # random probe subset (CPU smoke test)
+batch_probes: 2500
+device_config: configs/device_nominal.yaml
+device_overrides: {}
+chip_seeds: [0]
+read_seed: 2000
+calib:
+  structures_glob: data/structures/chg3_val_calib/*.cif   # ChargE3Net validation split, disjoint from D1
+  n_probes: 2000

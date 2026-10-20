@@ -1,0 +1,30 @@
+{
+ "material_id": "mp-2095",
+ "formula": "Rb2Te3",
+ "nsites": 20,
+ "volume_A3": 841.3271246854756,
+ "abc": [
+  4.729866,
+  10.928927,
+  16.275657
+ ],
+ "angles": [
+  90.0,
+  90.0,
+  90.0
+ ],
+ "is_magnetic": false,
+ "spacegroup": "Pnma",
+ "mp_chgcar_fine_grid": [
+  72,
+  168,
+  252
+ ],
+ "n_grid_points": 3048192,
+ "vasp_accurate_rule_ENCUT520_before_fft_rounding": [
+  72,
+  164,
+  244
+ ],
+ "note": "grid taken from the actual MP CHGCAR (MP static, PREC=Accurate, ENCUT=520); rule = 2*ceil(2*2*Gcut/|b_i|), Gcut=sqrt(ENCUT/3.80998)"
+}

@@ -1,0 +1,27 @@
+exp_id: G4
+run_tag: eval1000_budget_dual_sigma2x
+mode: analog
+checkpoint: data/weights/diffcsp_mp_csp/last.ckpt
+split_csv: data/mp_20/test.csv
+subset: data/splits/mp20_test_eval1000_seed42.csv
+n_structures: 1000
+batch_size: 500
+sample_seed: 0
+device_config: configs/device_nominal.yaml
+device_overrides:
+  n_slices: 2
+  sigma_prog: 5.0
+chip_seeds:
+- 0
+- 1
+- 2
+read_seed: 1000
+calib:
+  split_csv: data/mp_20/val.csv
+  subset: data/splits/mp20_val_val1000_seed42.csv
+  n_structures: 32
+  timesteps: 50
+sampler: budget
+noise_budget:
+  n_t: 50
+  n_rep: 16
